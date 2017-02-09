@@ -1,0 +1,114 @@
+$main-color: #049a5c;
+
+$main-color-darker: darken($main-color, 20%);
+
+$brand-primary: $main-color;
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Satisfy');
+
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+body {
+	margin-top: 50px;
+}
+
+.offset-top-15 {
+	margin-top: 15px;
+}
+
+.offset-top-30 {
+	margin-top: 30px;
+}
+
+.offset-top-60 {
+	margin-top: 60px;
+}
+
+.offset-bottom-15 {
+	margin-bottom: 15px;
+}
+
+.offset-bottom-30 {
+	margin-bottom: 30px;
+}
+
+.offset-bottom-60 {
+	margin-bottom: 60px;
+}
+
+.offset-left-15 {
+	margin-left: 15px;
+}
+
+.offset-left-30 {
+	margin-left: 30px;
+}
+
+.text-primary {
+	color: $brand-primary;
+}
+
+.text-white {
+	color: white;
+}
+
+.section-header {
+	font-family: 'Satisfy', cursive;	
+}
+
+.section-subheader {
+	color: $gray-light;	
+	font-family: 'Open Sans', sans-serif;
+}
+
+.text-light {
+	color: $gray-light;
+	font-weight: 200;	
+}
+
+.text-sm {
+	font-size: 1.2em;
+}
+
+.text-md {
+	font-size: 1.6em;
+}
+
+.text-lg {
+	font-size: 3em;
+}
+
+.text-xlg {
+	font-size: 4em;
+}
+
+.icon-xlg {
+	font-size: 100px;
+}
+
+.icon-lg {
+	font-size: 70px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.cover-background {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.darken-background {
+	-webkit-filter: brightness(40%);
+	-moz-filter: brightness(40%);
+	filter: brightness(40%);
+}
+
+@import 'header';
+@import 'footer';
+@import 'home';

@@ -1,0 +1,33 @@
+{
+  "name": "mercado_amigo",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "@egmfilho"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.2",
+    "bootstrap-sass": "bootstrap-sass-official#^3.3.7",
+    "angular-route": "^1.6.2",
+    "angular-animate": "^1.6.2",
+    "angular-sanitize": "^1.6.2",
+    "angular-touch": "^1.6.2",
+    "font-awesome": "^4.7.0"
+  }, 
+  "overrides": {
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
+    }
+  }
+}

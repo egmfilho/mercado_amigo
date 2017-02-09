@@ -1,0 +1,33 @@
+.footer {
+	height: auto;
+	min-height: 320px;
+	background-color: $main-color-darker;
+	font-family: 'Open Sans', sans-serif;
+
+	a:hover {
+		color: $brand-primary;		
+	}
+
+	.text-center-xs {
+		text-align: center;
+
+		@media(min-width: 768px) {
+			text-align: left;
+		}
+	}
+
+	.dl-horizontal {
+		dt {
+			width: 80px;
+		}
+
+		dd {
+			margin-left: 100px;
+		}
+	}
+
+	.copyright {
+		padding-top: 10px;
+		border-top: 1px solid rgba(#fff, .3);		
+	}
+}
