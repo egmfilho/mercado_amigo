@@ -4,7 +4,7 @@ block header
 	nav.navbar.navbar-default.navbar-fixed-top
 		.container-fluid
 			.navbar-header
-				button.navbar-toggle.collapsed(data-toggle='collapse' data-target='#navbar-collapse')
+				button.navbar-toggle.collapsed(data-toggle='collapse' data-target='navbar-collapse')
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
@@ -13,17 +13,17 @@ block header
 			#navbar-collapse.collapse.navbar-collapse
 				ul.nav.navbar-nav.navbar-center
 					li(name='home')
-						a(href='#/') Home
+						a(href='/') Home
 					li(name='quem-somos')
-						a(href='#/quem-somos') Quem Somos
+						a(href='/quem-somos') Quem Somos
 					li(name='sistema')
-						a(href='#/sistema') Sistema
+						a(href='/sistema') O Sistema
 					li(name='kits')
-						a(href='#/kits') Kits
+						a(href='/kits') Kits
 					li(name='cadastre-se')
-						a(href='#/cadastro') Cadastre-se
+						a(href='/cadastro') Cadastre-se
 					li(name='fale-conosco')
-						a(href='#/fale-conosco') Fale Conosco
+						a(href='/fale-conosco') Fale Conosco
 					li.visible-xs-inline-block
 						a(href='') Entrar
 
@@ -88,17 +88,17 @@ block footer
 					h3.text-white Site
 					ul.list-unstyled.offset-left-15
 						li
-							a(href='') Home
+							a(href='/home') Home
 						li
-							a(href='') Quem Somos
+							a(href='/quem-somos') Quem Somos
 						li
-							a(href='') Sistema
+							a(href='/sistema') O Sistema
 						li
-							a(href='') Kits
+							a(href='/kits') Kits
 						li
-							a(href='') Cadastre-se
+							a(href='/cadastre-se') Cadastre-se
 						li
-							a(href='') Fale Conosco
+							a(href='/fale-conosco') Fale Conosco
 				.col-xs-12.col-sm-4.col-sm-push-8.col-md-3.col-md-push-0.text-center-xs
 					h3.text-white Participe
 					ul.list-unstyled.offset-left-15

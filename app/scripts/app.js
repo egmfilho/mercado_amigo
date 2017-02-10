@@ -11,6 +11,10 @@ angular.module('mercado_amigo', [
 	])
 	.config(['$locationProvider', function($locationProvider) {
 		$locationProvider.hashPrefix('');
+		// $locationProvider.html5Mode({
+		// 	enabled: true,
+		// 	requireBase: false
+		// });
 	}])
 	.config(['$routeProvider', function($routeProvider) {
 
@@ -24,6 +28,10 @@ angular.module('mercado_amigo', [
 			.when('/quem-somos', {
 				name: 'quem-somos',
 				templateUrl: 'views/quem-somos.html'
+			})
+			.when('/sistema', {
+				name: 'sistema',
+				templateUrl: 'views/sistema.html'
 			})
 			.otherwise({
 				redirectTo: '/'

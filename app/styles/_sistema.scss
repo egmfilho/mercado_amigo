@@ -1,0 +1,17 @@
+#sistema-chart {
+	div {
+		width: auto;
+		display: inline-block;
+		text-align: center;
+		margin: 0 15px;
+
+		&.arrow {
+			color: $gray;
+		}
+
+		p {
+			display: block;
+			width: auto;			
+		}
+	}
+}

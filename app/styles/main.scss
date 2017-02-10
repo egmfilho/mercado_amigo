@@ -53,12 +53,15 @@ body {
 	color: white;
 }
 
+.text-gray {
+	color: $gray-light;
+}
+
 .section-header {
 	font-family: 'Satisfy', cursive;	
 }
 
-.section-subheader {
-	color: $gray-light;	
+.section-subheader {	
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -91,6 +94,14 @@ body {
 	font-size: 70px;
 }
 
+.icon-md {
+	font-size: 50px;
+}
+
+.icon-sm {
+	font-size: 30px;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -111,4 +122,6 @@ body {
 
 @import 'header';
 @import 'footer';
+@import 'templates';
 @import 'home';
+@import 'sistema';
