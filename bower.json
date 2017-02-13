@@ -22,12 +22,15 @@
     "angular-sanitize": "^1.6.2",
     "angular-touch": "^1.6.2",
     "font-awesome": "^4.7.0"
-  }, 
+  },
   "overrides": {
     "font-awesome": {
       "main": [
         "css/font-awesome.css"
       ]
     }
+  },
+  "devDependencies": {
+    "compass-sass-mixins": "*"
   }
 }
