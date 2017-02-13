@@ -1,6 +1,10 @@
 $main-color: #049a5c;
+// $main-color: lighten(#245424, 12%);
 
-$main-color-darker: darken($main-color, 20%);
+$main-color-darker:  darken($main-color, 20%);
+$main-color-dark:    darken($main-color, 13%);
+$main-color-light:   lighten($main-color, 13%);
+$main-color-lighter: lighten($main-color, 20%);
 
 $brand-primary: $main-color;
 
@@ -8,6 +12,8 @@ $brand-primary: $main-color;
 @import url('https://fonts.googleapis.com/css?family=Satisfy');
 
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+@import "../../bower_components/compass-sass-mixins/lib/compass";
 
 body {
 	margin-top: 50px;
@@ -87,19 +93,19 @@ body {
 }
 
 .icon-xlg {
-	font-size: 100px;
+	font-size: 8em;
 }
 
 .icon-lg {
-	font-size: 70px;
+	font-size: 5em;
 }
 
 .icon-md {
-	font-size: 50px;
+	font-size: 3em;
 }
 
 .icon-sm {
-	font-size: 30px;
+	font-size: 1.2em;
 }
 
 .vcenter {
