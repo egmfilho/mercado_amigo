@@ -33,12 +33,45 @@ angular.module('mercado_amigo', [
 				name: 'sistema',
 				templateUrl: 'views/sistema.html'
 			})
+			.when('/kits', {
+				name: 'kits',
+				templateUrl: 'views/kits.html',
+				controller: 'KitsCtrl',
+				controllerAs: 'kits'
+			})
+			.when('/cadastre-se', {
+				name: 'cadastre-se',
+				templateUrl: 'views/cadastre-se.html'
+			})
+			.when('/fale-conosco', {
+				name: 'fale-conosco',
+				templateUrl: 'views/fale-conosco.html'
+			})
+			.when('/entrar', {
+				name: 'entrar',
+				templateUrl: 'views/entrar.html',
+				controller: 'EntrarCtrl',
+				controllerAs: 'entrar'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
 
 	}])
-	.run(['$rootScope', function($rootScope) {
+	.run(['$rootScope', '$window', function($rootScope, $window) {
+		var navbar = jQuery('nav.navbar.navbar-default');
+		angular.element($window).bind("scroll", function(e) {
+            if ($window.scrollY >= 150) {
+        		navbar.addClass('navbar-fixed-top');
+            } else {
+            	navbar.removeClass('navbar-fixed-top');
+            }
+        });
+
+		$rootScope.getNumber = function(num) {
+			return new Array(Math.max(0, Math.ceil(num)));
+		};
+
 		$rootScope.$on('$routeChangeSuccess', function(event, current, previous) {			
 			var nav = jQuery('#navbar-collapse ul:first-child');
 			if (!previous || !previous.name) {

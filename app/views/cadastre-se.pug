@@ -1,0 +1,32 @@
+.row
+	#dark-banner.banner-small
+		.cover-background.dark(style='background-image: url("http://lorempixel.com/1920/1080/business/5")')
+		.foreground
+			h1.section-header.text-xlg.text-center.text-white.offset-top-60 Cadastre-se
+			p.section-subheader.text-center.text-sm.text-white.offset-bottom-30
+				| Cadastro de novos usuários
+
+.container.offset-top-60.offset-bottom-60
+	.row
+		.col-xs-12.col-sm-offset-2.col-sm-8
+			h2.section-header.text-lg.text-center Crie sua conta
+
+			h4.text-light.required-field-label Nome
+				span  *
+			input.form-control(type='text')
+
+			h4.text-light.required-field-label Email
+				span  *
+			input.form-control(type='email')
+
+			h4.text-light.required-field-label Senha
+				span  *
+			input.form-control(type='password')
+
+			h4.text-light.required-field-label Confirme a senha
+				span  *
+			input.form-control(type='password')
+			
+			.row.offset-top-30
+				.col-xs-12.col-sm-push-8.col-sm-4
+					button.btn.btn-primary.btn-block.btn-lg.btn-pill Cadastrar

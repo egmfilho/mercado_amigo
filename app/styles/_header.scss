@@ -1,16 +1,48 @@
+.header-banner {
+	width: 100%;
+	height: 150px;
+	background-color: #ddd;	
+	background-image: url('../images/logo_1.png');
+	background-size: 150px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 nav.navbar {
 	margin-bottom: 0;
-	border-radius: 0;
+	border-radius: 0;	
 
 	&.navbar-default {
 		z-index: 1;
-		// background-color: white;
+		background-color: $main-color-dark;
 		font-family: 'Open Sans', sans-serif;
 		font-size: 12px;
 		border: none;		
 		box-shadow: 0 2px 3px rgba(#000, .1);
 
-		@media(min-width: 992px) {
+		a.navbar-brand {
+			padding: 0 15px;
+			div {
+				background-image: url('../images/logo_2_white.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				width: 100px;
+				height: 100%;
+				opacity: 0;
+				transition: opacity .25s;
+			}
+		}
+
+		&.navbar-fixed-top {
+			a.navbar-brand {
+				div {
+					opacity: 1;
+				}
+			}
+		}
+
+		@media(min-width: $screen-md-min) {
 			.navbar-header {
 				width: 170px;
 			}
@@ -21,7 +53,7 @@ nav.navbar {
 		}
 
 		.nav.navbar-nav {
-			@media(min-width: 992px) {
+			@media(min-width: $screen-md-min) {
 				&:last-child {
 					width: 170px;
 				}
@@ -30,15 +62,16 @@ nav.navbar {
 			li {
 				a {
 					padding: 15px 10px;
+					color: white;
 				}
 
 				&.active {
-					@media(min-width: 768px) {
+					@media(min-width: $screen-sm-min) {
 						> a {
 							background-color: transparent;
-							color: $main-color;
+							// color: $main-color;
 							padding-bottom: 11px;
-							border-bottom: 4px solid $main-color;
+							border-bottom: 4px solid white;
 						}
 					}
 				}
@@ -50,7 +83,7 @@ nav.navbar {
 				}
 
 				&.contact {				
-					@media(min-width: 992px) {
+					@media(min-width: $screen-md-min) {
 						a {
 							padding-right: 5px;
 							font-size: 14px;
@@ -66,7 +99,7 @@ nav.navbar {
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: $screen-sm-min) {
 	.navbar .navbar-nav {
 		display: inline-block;
 		float: none;

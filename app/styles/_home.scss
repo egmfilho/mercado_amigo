@@ -3,7 +3,7 @@
 	$height: 500px;
 	
 	height: $height-xs;
-	@media(min-width: 768px) {
+	@media(min-width: $screen-sm-min) {
 		height: $height;
 	}
 
@@ -11,7 +11,7 @@
 		width: 100%;
 		
 		height: $height-xs;
-		@media(min-width: 768px) {
+		@media(min-width: $screen-sm-min) {
 			height: $height;
 		}
 

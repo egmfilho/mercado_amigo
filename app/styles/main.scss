@@ -16,7 +16,7 @@ $brand-primary: $main-color;
 @import "../../bower_components/compass-sass-mixins/lib/compass";
 
 body {
-	margin-top: 50px;
+	// margin-top: 50px;
 }
 
 .offset-top-15 {
@@ -126,8 +126,55 @@ body {
 	filter: brightness(40%);
 }
 
+.btn-default, .btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger {
+    &:focus, &:active {
+    	outline: none !important;
+    }
+
+    &.btn-pill {
+    	border-radius: 25px;
+    }
+}
+
+
+.outline-border {
+	&:focus {
+		// border-color: $main-color;
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.input-style {
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 15px;
+	font-family: 'Open Sans', sans-serif;
+	background-color: $gray-lighter;
+}
+
+.form-control {
+	@at-root {
+		input#{&} {				
+			height: 45px;						
+			@extend .outline-border;
+			@extend .input-style;
+		}
+
+		textarea#{&} {
+			height: 150px;
+			@extend .outline-border;
+			@extend .input-style;
+		}
+	}
+}
+
 @import 'header';
 @import 'footer';
 @import 'templates';
 @import 'home';
 @import 'sistema';
+@import 'kits';
+@import 'cadastre-se';
+@import 'entrar';

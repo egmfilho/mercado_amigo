@@ -1,0 +1,59 @@
+.conver-screen {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.black-bg {
+	@extend .conver-screen;
+	z-index: -99;	
+	background-color: $main-color-dark;
+	opacity: .5;
+}
+
+video {
+	@extend .conver-screen;
+	z-index: -100;
+}
+
+.login-title {
+	font-family: 'Open Sans', cursive;
+	text-shadow: 0 0 8px rgba(#000, .5);
+}
+
+.login-subtitle {
+	font-family: 'Open Sans', cursive;
+	text-shadow: 0 0 7px rgba(#000, .5);
+}
+
+.login-container {
+	width: 100%;
+	background-color: rgba(#fff, 1);
+	padding: 20px;
+	box-shadow: 0 0 15px rgba(#000, .5);
+
+	.logo {
+		width: 60px;
+		height: 60px;
+		margin: 0 auto;
+		background-image: url('../images/logo_3.png');
+		background-position: center;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+
+	@media(min-width: $screen-lg-min) {
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+
+	h2 {
+		font-family: 'Satisfy', cursive;
+	}
+}

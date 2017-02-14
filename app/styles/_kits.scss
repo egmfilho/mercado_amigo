@@ -1,0 +1,52 @@
+.kit {
+	a[data-toggle='collapse'] {
+		&:hover, &:focus {
+			text-decoration: none;
+		}
+
+		h2 {
+			@media(min-width: $screen-sm-min) {
+				padding-bottom: 15px;
+				border-bottom: 1px solid #ddd;		
+			}
+
+			i.pull-right::before {
+				content: '\f106';
+			}
+		}
+
+		&.collapsed {
+			h2 {
+				i.pull-right::before {
+					content: '\f107';
+				}
+			}
+		}
+	}
+
+	.table-responsive {				
+		max-height: 400px;
+		overflow-y: auto;
+
+		@media(min-width: $screen-sm-min) {
+			max-height: none;
+		}
+
+		.table {	
+			tr {
+				td {
+					text-align: center;
+					font-family: 'Open Sans', sans-serif;
+					border: none;
+					display: block;
+
+					@media(min-width: $screen-sm-min) {
+						display: table-cell;
+					}
+
+					@extend .text-sm;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,28 @@
+.black-bg
+video(playsinline autoplay muted loop)
+	source(src='../videos/bg_login.mp4' type='video/mp4')
+
+h1.login-title.text-center.text-xlg.text-white.offset-top-60
+	| Entrar
+h2.login-subtitle.text-center.text-lg.text-white.offset-top-30.offset-bottom-60
+	| O Mercado Amigo
+
+.row
+	.col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+		.login-container.offset-top-60
+			.logo
+			h2.text-center.text-lg.offset-bottom-30 Acesse sua conta
+
+			h4.text-light.required-field-label Email
+				span  *
+			input.form-control(type='text')
+
+			h4.text-light.required-field-label Senha
+				span  *
+			input.form-control(type='password')
+
+			.row.offset-top-30
+				.col-xs-12.col-sm-push-7.col-sm-5
+					button.btn.btn-primary.btn-block.btn-lg.btn-pill Acessar
+
+div(style='height: 200px')

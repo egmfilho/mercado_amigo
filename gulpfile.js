@@ -105,6 +105,12 @@ gulp.task('copy-fonts', function() {
 		.pipe(connect.reload());
 });
 
+gulp.task('copy-videos', function() {	
+	return gulp.src(source + 'videos/**/*.*')
+		.pipe(gulp.dest(dest + 'videos'))
+		.pipe(connect.reload());
+});
+
 gulp.task('watch', function() {
 	gulp.watch([source + '*.pug'], ['index']);
 	gulp.watch([source + 'views/*.pug'], ['compile-views']);
@@ -116,9 +122,10 @@ gulp.task('watch', function() {
 	gulp.watch(bowerFiles(), ['copy-fonts'])
 	gulp.watch([source + 'images/**/*.*'], ['copy-images']);
 	gulp.watch([source + 'fonts/**/*.*'], ['copy-fonts']);
+	gulp.watch([source + 'videos/**/*.*'], ['copy-videos']);
 });
 
 gulp.task('default', ['connect', 'watch']);
 
-gulp.task('build', ['index', 'compile-views', 'compile-sass', 'app-bundle', 'copy-images', 'vendor-bundle', 'css', 'copy-fonts']);
+gulp.task('build', ['index', 'compile-views', 'compile-sass', 'app-bundle', 'copy-images', 'vendor-bundle', 'css', 'copy-fonts', 'copy-videos']);
 
