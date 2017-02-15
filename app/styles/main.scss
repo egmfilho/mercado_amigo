@@ -15,8 +15,10 @@ $brand-primary: $main-color;
 
 @import "../../bower_components/compass-sass-mixins/lib/compass";
 
-body {
-	// margin-top: 50px;
+body.offset-top-50 {
+	@media(min-width: $screen-sm-min) {
+		margin-top: 50px;
+	}
 }
 
 .offset-top-15 {

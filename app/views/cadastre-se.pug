@@ -10,23 +10,22 @@
 	.row
 		.col-xs-12.col-sm-offset-2.col-sm-8
 			h2.section-header.text-lg.text-center Crie sua conta
+			p.section-subheader.text-sm.text-gray.text-center
+				| Requisite seu cadastro e em breve entraremos em contato
 
-			h4.text-light.required-field-label Nome
+			h4.text-light.required-field-label(ng-model='nome') Nome
 				span  *
 			input.form-control(type='text')
 
-			h4.text-light.required-field-label Email
+			h4.text-light.required-field-label(ng-model='email') Email
 				span  *
 			input.form-control(type='email')
 
-			h4.text-light.required-field-label Senha
+			h4.text-light.required-field-label(ng-model='telefone') Telefone
 				span  *
-			input.form-control(type='password')
-
-			h4.text-light.required-field-label Confirme a senha
-				span  *
-			input.form-control(type='password')
+			input.form-control(type='text')
 			
 			.row.offset-top-30
 				.col-xs-12.col-sm-push-8.col-sm-4
-					button.btn.btn-primary.btn-block.btn-lg.btn-pill Cadastrar
+					button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit(nome, email, telefone)') 
+						| Cadastrar

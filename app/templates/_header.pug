@@ -1,0 +1,73 @@
+block header
+	.header-banner
+	nav.navbar.navbar-default
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(data-toggle='collapse' data-target='navbar-collapse')
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.navbar-brand(href='/') 
+					div
+
+			#navbar-collapse.collapse.navbar-collapse
+				ul.nav.navbar-nav.navbar-center
+					li(name='home')
+						a(href='/') Home
+					li(name='quem-somos')
+						a(href='/quem-somos') Quem Somos
+					li(name='sistema')
+						a(href='/sistema') O Sistema
+					li(name='kits')
+						a(href='/kits') Kits
+					li(name='cadastre-se')
+						a(href='/cadastre-se') Cadastre-se
+					li(name='fale-conosco')
+						a(href='/fale-conosco') Fale Conosco
+					li.visible-xs-inline-block
+						a(href='') Entrar
+
+				ul.nav.navbar-nav.navbar-right.hidden-xs.hidden-sm
+					li
+						a(href='') 
+							span
+								i.fa.fa-unlock
+								|  Entrar
+
+					li.separator
+
+					li.contact
+						a(href='' target='_blank') 
+							i.fa.fa-phone
+					li.contact
+						a(href='' target='_blank') 
+							i.fa.fa-envelope-o
+					li.contact
+						a(href='' target='_blank') 
+							i.fa.fa-facebook
+
+				ul.nav.navbar-nav.navbar-right.hidden-xs.visible-sm-inline-block
+					li.dropdown
+						a.dropdown-toggle(href='' style='font-size: 18px' data-toggle='dropdown' role='button')
+							span.glyphicon.glyphicon-option-vertical
+						ul.dropdown-menu
+							li.contact
+								a(href='' target='_blank') 
+									i.fa.fa-phone 
+									|  (21) 99999-8888
+							li.contact
+								a(href='' target='_blank') 
+									i.fa.fa-envelope-o 
+									|  contato@email.com
+							li.contact
+								a(href='' target='_blank') 
+									i.fa.fa-facebook 
+									|  Facebook
+
+							li.divider(role='separator')
+
+							li
+								a(href='') 
+									span.text-primary 
+										i.fa.fa-unlock
+										|  Entrar

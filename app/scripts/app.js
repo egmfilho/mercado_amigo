@@ -11,10 +11,10 @@ angular.module('mercado_amigo', [
 	])
 	.config(['$locationProvider', function($locationProvider) {
 		$locationProvider.hashPrefix('');
-		// $locationProvider.html5Mode({
-		// 	enabled: true,
-		// 	requireBase: false
-		// });
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
 	}])
 	.config(['$routeProvider', function($routeProvider) {
 
@@ -41,11 +41,15 @@ angular.module('mercado_amigo', [
 			})
 			.when('/cadastre-se', {
 				name: 'cadastre-se',
-				templateUrl: 'views/cadastre-se.html'
+				templateUrl: 'views/cadastre-se.html',
+				controller: 'CadastroCtrl',
+				controllerAs: 'cadastro'
 			})
 			.when('/fale-conosco', {
 				name: 'fale-conosco',
-				templateUrl: 'views/fale-conosco.html'
+				templateUrl: 'views/fale-conosco.html',
+				controller: 'FaleConoscoCtrl',
+				controllerAs: 'faleConosco'
 			})
 			.when('/entrar', {
 				name: 'entrar',
@@ -59,12 +63,16 @@ angular.module('mercado_amigo', [
 
 	}])
 	.run(['$rootScope', '$window', function($rootScope, $window) {
-		var navbar = jQuery('nav.navbar.navbar-default');
+		var navbar = jQuery('nav.navbar.navbar-default'), 
+			body   = jQuery('body');
+
 		angular.element($window).bind("scroll", function(e) {
             if ($window.scrollY >= 150) {
         		navbar.addClass('navbar-fixed-top');
+        		body.addClass('offset-top-50');
             } else {
             	navbar.removeClass('navbar-fixed-top');
+            	body.removeClass('offset-top-50');
             }
         });
 

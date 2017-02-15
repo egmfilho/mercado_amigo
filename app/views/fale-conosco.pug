@@ -13,18 +13,19 @@
 			p.section-subheader.text-gray.text-sm.text-center.offset-bottom-60
 				| Conte com nosso Fale Conosco para tirar suas dúvidas e enviar sugestões
 
-			h4.text-light.required-field-label Nome
+			h4.text-light.required-field-label(ng-model='nome') Nome
 				span  *
 			input.form-control(type='text')
 
-			h4.text-light.required-field-label Email
+			h4.text-light.required-field-label(ng-model='email') Email
 				span  *
 			input.form-control(type='email')
 
-			h4.text-light.required-field-label Mensagem
+			h4.text-light.required-field-label(ng-model='mensagem') Mensagem
 				span  *
 			textarea.form-control
 			
 			.row.offset-top-30
 				.col-xs-12.col-sm-push-8.col-sm-4
-					button.btn.btn-primary.btn-block.btn-lg.btn-pill Enviar
+					button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='faleConosco.submit(nome, email, mensagem)') 
+						| Enviar
