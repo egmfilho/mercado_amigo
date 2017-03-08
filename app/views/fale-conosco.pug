@@ -13,17 +13,17 @@
 			p.section-subheader.text-gray.text-sm.text-center.offset-bottom-60
 				| Conte com nosso Fale Conosco para tirar suas dúvidas e enviar sugestões
 
-			h4.text-light.required-field-label(ng-model='nome') Nome
+			h4.text-light.required-field-label Nome
 				span  *
-			input.form-control(type='text')
+			input.form-control(type='text' ng-model='nome')
 
-			h4.text-light.required-field-label(ng-model='email') Email
+			h4.text-light.required-field-label Email
 				span  *
-			input.form-control(type='email')
+			input.form-control(type='email' ng-model='email')
 
-			h4.text-light.required-field-label(ng-model='mensagem') Mensagem
+			h4.text-light.required-field-label Mensagem
 				span  *
-			textarea.form-control
+			textarea.form-control(ng-model='mensagem')
 			
 			.row.offset-top-30
 				.col-xs-12.col-sm-push-8.col-sm-4

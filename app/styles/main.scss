@@ -22,35 +22,35 @@ body.offset-top-50 {
 }
 
 .offset-top-15 {
-	margin-top: 15px;
+	margin-top: 15px !important;
 }
 
 .offset-top-30 {
-	margin-top: 30px;
+	margin-top: 30px !important;
 }
 
 .offset-top-60 {
-	margin-top: 60px;
+	margin-top: 60px !important;
 }
 
 .offset-bottom-15 {
-	margin-bottom: 15px;
+	margin-bottom: 15px !important;
 }
 
 .offset-bottom-30 {
-	margin-bottom: 30px;
+	margin-bottom: 30px !important;
 }
 
 .offset-bottom-60 {
-	margin-bottom: 60px;
+	margin-bottom: 60px !important;
 }
 
 .offset-left-15 {
-	margin-left: 15px;
+	margin-left: 15px !important;
 }
 
 .offset-left-30 {
-	margin-left: 30px;
+	margin-left: 30px !important;
 }
 
 .text-primary {
@@ -159,7 +159,7 @@ body.offset-top-50 {
 .form-control {
 	@at-root {
 		input#{&} {				
-			height: 45px;						
+			height: 45px;
 			@extend .outline-border;
 			@extend .input-style;
 		}
@@ -169,7 +169,48 @@ body.offset-top-50 {
 			@extend .outline-border;
 			@extend .input-style;
 		}
+
+		select#{&} {
+			height: 45px;
+			-webkit-appearance: none;
+  			-webkit-border-radius: 0px;
+  			border-radius: 0;
+			@extend .outline-border;
+			@extend .input-style;
+		}
 	}
+}
+
+.custom-select {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	font-family: 'Open Sans', sans-serif;	
+
+	&.custom-select-block {
+		width: 100%;
+
+		.btn {
+			&:first-child {
+				width: calc(100% - 32px);
+			}
+		}
+
+		.dropdown-menu {
+			width: 100%;
+			font-size: 14px;
+			color: $input-color;
+		}
+	}
+
+	.btn {
+		background-color: $gray-lighter;
+		border: none;
+		border-radius: 0;
+		height: 45px;
+		font-size: 14px;
+		color: $input-color;
+	}	
 }
 
 @import 'header';

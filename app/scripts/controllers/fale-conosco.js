@@ -8,6 +8,12 @@ FaleConoscoCtrl.$inject = [ '$http' ];
 function FaleConoscoCtrl($http) {
 	
 	this.submit = function(nome, email, mensagem) {
+
+		if (!nome || !email || !mensagem) {
+			alert('Preencha corretamente todos os campos!');
+			return;
+		}
+
 		$http({
 			url: './mail.php?action=contact',
 			method: 'POST',
@@ -15,9 +21,6 @@ function FaleConoscoCtrl($http) {
 				'name': nome,
 				'email': email,
 				'message': mensagem
-			},
-			headers: {
-				'Content-Type': 'Application/x-www-form-urlencoded'
 			}
 		});
 	};

@@ -4,28 +4,268 @@
 		.foreground
 			h1.section-header.text-xlg.text-center.text-white.offset-top-60 Cadastre-se
 			p.section-subheader.text-center.text-sm.text-white.offset-bottom-30
-				| Cadastro de novos usuários
+				| Preencha o formulário e em breve entraremos em contato
 
 .container.offset-top-60.offset-bottom-60
 	.row
-		.col-xs-12.col-sm-offset-2.col-sm-8
-			h2.section-header.text-lg.text-center Crie sua conta
-			p.section-subheader.text-sm.text-gray.text-center
-				| Requisite seu cadastro e em breve entraremos em contato
+		//- DADOS PESSOAIS
+		.col-xs-12
+			h2.section-header.text-lg.text-center Dados Pessoais
 
-			h4.text-light.required-field-label(ng-model='nome') Nome
-				span  *
-			input.form-control(type='text')
+		.col-xs-12
+			h4.text-light.required-field-label Nome Completo
+				span *
+			input.form-control(type='text' ng-model='cadastro.dados.nome')
+		
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label CPF
+				span *
+			input.form-control(type='text' ng-model='cadastro.dados.cpf')
+		
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label RG
+				span *
+			input.form-control(type='text' ng-model='cadastro.dados.rg')
 
-			h4.text-light.required-field-label(ng-model='email') Email
-				span  *
-			input.form-control(type='email')
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Data de Nascimento
+				span *
+			input.form-control(type='text' ng-model='cadastro.dados.nascimento')
 
-			h4.text-light.required-field-label(ng-model='telefone') Telefone
-				span  *
-			input.form-control(type='text')
-			
-			.row.offset-top-30
-				.col-xs-12.col-sm-push-8.col-sm-4
-					button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit(nome, email, telefone)') 
-						| Cadastrar
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Sexo
+				span *
+			.custom-select.custom-select-block(name='selectSexo')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.dados.sexo || 'Informe o sexo'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.dados.sexo = "Feminino"') Feminino
+					li
+						a(href='' ng-click='cadastro.dados.sexo = "Masculino"') Masculino
+
+		//- ENDEREÇO PESSOAL
+		.col-xs-12.offset-top-60
+			h2.section-header.text-lg.text-center Endereço Pessoal
+
+		.col-xs-12
+			h4.text-light.required-field-label Endereço
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.endereco')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Número
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.numero')
+
+		.col-xs-12.col-sm-8
+			h4.text-light Complemento
+			input.form-control(type='text' ng-model='cadastro.endereco.complemento')
+
+		.col-xs-12
+			h4.text-light.required-field-label Bairro
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.bairro')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label CEP
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.cep')
+
+		.col-xs-12.col-sm-8
+			h4.text-light Ponto de Referência
+			input.form-control(type='text' ng-model='cadastro.endereco.referencia')
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Cidade
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.cidade')
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Estado
+				span *
+			input.form-control(type='text' ng-model='cadastro.endereco.uf')
+
+		//- ENDEREÇO DE ENTREGA
+		.col-xs-12.offset-top-60
+			h2.section-header.text-lg.text-center Endereço de Entrega
+
+		.col-xs-12
+			h4.text-light.required-field-label Endereço
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.endereco')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Número
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.numero')
+
+		.col-xs-12.col-sm-8
+			h4.text-light Complemento
+			input.form-control(type='text' ng-model='cadastro.entrega.complemento')
+
+		.col-xs-12
+			h4.text-light.required-field-label Bairro
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.bairro')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label CEP
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.cep')
+
+		.col-xs-12.col-sm-8
+			h4.text-light Ponto de Referência
+			input.form-control(type='text' ng-model='cadastro.entrega.referencia')
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Cidade
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.cidade')
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Estado
+				span *
+			input.form-control(type='text' ng-model='cadastro.entrega.uf')
+
+		//- DADOS DE CONTATO
+		.col-xs-12.offset-top-60
+			h2.section-header.text-lg.text-center Dados de Contato
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Email
+				span *
+			input.form-control(type='text' ng-model='cadastro.contato.email')
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Telefone
+				span *
+			input.form-control(type='text' ng-model='cadastro.contato.telefone')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Celular 1
+				span *
+			input.form-control(type='text' ng-model='cadastro.contato.cel1.numero')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Operadora
+				span *
+			input.form-control(type='text' ng-model='cadastro.contato.cel1.operadora')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Whatsapp
+				span *
+			.custom-select.custom-select-block(name='cel1.whatsapp')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.contato.cel1.whatsapp || 'Possui Whatsapp?'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.contato.cel1.whatsapp = "Sim"') Sim
+					li
+						a(href='' ng-click='cadastro.contato.cel1.whatsapp = "Não"') Não
+
+		.col-xs-12.col-sm-4
+			h4.text-light Celular 2
+			input.form-control(type='text' ng-model='cadastro.contato.cel2.numero')
+
+		.col-xs-12.col-sm-4
+			h4.text-light Operadora
+			input.form-control(type='text' ng-model='cadastro.contato.cel2.operadora')
+
+		.col-xs-12.col-sm-4
+			h4.text-light Whatsapp
+			.custom-select.custom-select-block(name='cel2.whatsapp')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.contato.cel2.whatsapp || 'Possui Whatsapp?'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.contato.cel2.whatsapp = "Sim"') Sim
+					li
+						a(href='' ng-click='cadastro.contato.cel2.whatsapp = "Não"') Não
+
+		//- DADOS BANCARIO
+		.col-xs-12.offset-top-60
+			h2.section-header.text-lg.text-center Dados Bancários
+
+		.col-xs-12.col-sm-3
+			h4.text-light.required-field-label Banco
+				span *
+			input.form-control(type='text' ng-model='cadastro.bancario.banco')
+
+		.col-xs-12.col-sm-3
+			h4.text-light.required-field-label Agência
+				span *
+			input.form-control(type='text' ng-model='cadastro.bancario.agencia')
+
+		.col-xs-12.col-sm-3
+			h4.text-light.required-field-label Número da Conta
+				span *
+			input.form-control(type='text' ng-model='cadastro.bancario.conta')
+
+		.col-xs-12.col-sm-3
+			h4.text-light.required-field-label Tipo
+				span *
+			.custom-select.custom-select-block(name='tipo')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.bancario.tipo || 'Tipo da conta'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.bancario.tipo = "Conta Corrente"') Conta Corrente
+					li
+						a(href='' ng-click='cadastro.bancario.tipo = "Conta Poupança"') Conta Poupança
+
+		//- DADOS DA REDE
+		.col-xs-12.offset-top-60
+			h2.section-header.text-lg.text-center Dados da Rede
+
+		.col-xs-12
+			h4.text-light Nome do Indicador
+			input.form-control(type='text' ng-model='cadastro.rede.nomeIndicador')
+
+		.col-xs-12.col-sm-4
+			h4.text-light CPF do Indicador
+			input.form-control(type='text' ng-model='cadastro.rede.cpfIndicador')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Nível 1
+				span *
+			.custom-select.custom-select-block(name='nivel1')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.rede.nivel1 || ''}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.rede.nivel1 = "Sim"') Sim
+					li
+						a(href='' ng-click='cadastro.rede.nivel1 = "Não"') Não
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Derramamento na Rede
+				span *
+			.custom-select.custom-select-block(name='derramamento')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.rede.derramamento || ''}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu
+					li
+						a(href='' ng-click='cadastro.rede.derramamento = "Sim"') Sim
+					li
+						a(href='' ng-click='cadastro.rede.derramamento = "Não"') Não
+
+	.row.offset-top-60
+			.col-xs-12.col-sm-push-3.col-sm-3
+				button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit()') 
+					| Limpar
+			.col-xs-12.col-sm-push-3.col-sm-3
+				button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit()') 
+					| Cadastrar
