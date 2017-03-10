@@ -27,19 +27,19 @@
 	> div {
 		height: 250px;
 		padding: 15px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
 
 		> div {
 			width: 100%;
 			height: 100%;
 			border: 1px dashed rgba(#fff, .4);
-			padding: 15px;
-			background-repeat: no-repeat;
-			background-position: center;
-			background-size: cover;
+			padding: 15px;			
 		}		
 
 		&:first-child {			
-			background-image: url('http://lorempixel.com/1024/480/nature/2');
+			background-image: url('../images/sua-vez.jpg');
 
 			font-family: 'Satisfy', cursive;
 			font-size: .6em;
@@ -87,7 +87,7 @@
 		}
 
 		&:last-child {
-			background-image: url('http://lorempixel.com/1024/480/nature/3');
+			background-image: url('../images/faca-parte.jpg');
 			font-size: 1em;
 
 			@media(min-width: $screen-sm-min) {

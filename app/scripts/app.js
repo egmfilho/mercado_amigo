@@ -7,7 +7,8 @@ angular.module('mercado_amigo', [
 		'ngRoute',
 		'ngSanitize',
 		'ngTouch',
-		'mercado_amigo.controllers'
+		'mercado_amigo.controllers',
+		'ui.mask'
 	])
 	.config(['$locationProvider', function($locationProvider) {
 		$locationProvider.hashPrefix('');
@@ -67,6 +68,10 @@ angular.module('mercado_amigo', [
 			body   = jQuery('body');
 
 		angular.element($window).bind("scroll", function(e) {
+			if ($window.innerWidth < 768) {
+				return;
+			}
+
             if ($window.scrollY >= 150) {
         		navbar.addClass('navbar-fixed-top');
         		body.addClass('offset-top-50');
@@ -89,5 +94,10 @@ angular.module('mercado_amigo', [
 			}			
 
 			jQuery('#navbar-collapse ul li[name="' + current.name + '"]').addClass('active');
+		});
+
+		// Esconde o navbar collapse ao clicar em um link
+		jQuery('.navbar-header .navbar-brand, #navbar-collapse a').on('click', function() {
+			jQuery('.navbar-toggle').click();
 		});
 	}]);

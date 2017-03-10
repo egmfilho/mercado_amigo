@@ -3,9 +3,9 @@
 angular.module('mercado_amigo')
 	.controller('EntrarCtrl', EntrarCtrl);
 
-EntrarCtrl.$inject = ['$http', '$window'];
+EntrarCtrl.$inject = ['$http', '$window', '$httpParamSerializerJQLike'];
 
-function EntrarCtrl($http, $window) {
+function EntrarCtrl($http, $window, $httpParamSerializerJQLike) {
 	
 	this.login = function(login, senha) {
 
@@ -18,13 +18,13 @@ function EntrarCtrl($http, $window) {
 		$http({
 			url: '/admin/login.php',
 			method: 'POST',
-			data: {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $httpParamSerializerJQLike({
 				user_user: login,
 				user_pass: senha
-			},
-			headers: {
-				'Content-Type': 'Application/x-www-form-urlencoded'
-			}
+			})
 		}).then(function(success) {
 			$window.location('/admin');
 		}, function(error) {

@@ -15,9 +15,17 @@ $brand-primary: $main-color;
 
 @import "../../bower_components/compass-sass-mixins/lib/compass";
 
-body.offset-top-50 {
+@import "awesome-bootstrap-checkbox";
+
+body {
+	padding-top: 50px;
+
 	@media(min-width: $screen-sm-min) {
-		margin-top: 50px;
+		padding-top: 0;
+
+		&.offset-top-50 {
+			padding-top: 50px;			
+		}
 	}
 }
 
@@ -75,7 +83,7 @@ body.offset-top-50 {
 
 .text-light {
 	color: $gray-light;
-	font-weight: 200;	
+	font-weight: 200 !important;	
 }
 
 .text-sm {
@@ -154,6 +162,11 @@ body.offset-top-50 {
 	padding: 15px;
 	font-family: 'Open Sans', sans-serif;
 	background-color: $gray-lighter;
+}
+
+.checkbox input[type="checkbox"]:focus, .checkbox input[type="checkbox"]:focus + label::before {
+	outline: none;
+	box-shadow: none;
 }
 
 .form-control {

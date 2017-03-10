@@ -3,11 +3,12 @@
 angular.module('mercado_amigo.controllers')
 	.controller('CadastroCtrl', CadastroCtrl);
 
-CadastroCtrl.$inject = ['$http'];
+CadastroCtrl.$inject = ['$scope', '$http', '$httpParamSerializerJQLike'];
 
-function CadastroCtrl($http) {
+function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 
-	var self = this;
+	var self = this,
+		repetirEnderecoEntrega = true;
 
 	self.dados = { };
 	self.endereco = { };
@@ -16,7 +17,7 @@ function CadastroCtrl($http) {
 	self.bancario = { };
 	self.rede = { };
 
-	function init() {
+	function initDados() {
 		self.dados = { 
 			nome: '',
 			cpf: '',
@@ -24,7 +25,9 @@ function CadastroCtrl($http) {
 			nascimento: '',
 			sexo: ''
 		};
+	}
 
+	function initEndereco() {
 		self.endereco = {
 			endereco: '',
 			numero: '',
@@ -35,7 +38,9 @@ function CadastroCtrl($http) {
 			cidade: '',
 			uf: ''
 		};
+	}
 
+	function initEntrega() {
 		self.entrega = {
 			endereco: '',
 			numero: '',
@@ -46,7 +51,9 @@ function CadastroCtrl($http) {
 			cidade: '',
 			uf: ''
 		};
+	}
 
+	function initContato() {
 		self.contato = {
 			email: '',
 			telefone: '',
@@ -61,14 +68,18 @@ function CadastroCtrl($http) {
 				whatsapp: ''
 			}
 		};
+	}
 
+	function initBancario() {
 		self.bancario = {
 			banco: '',
 			agencia: '',
 			conta: '',
 			tipo: ''
 		};
+	}
 
+	function initRede() {
 		self.rede = {
 			nomeIndicador: '',
 			cpfIndicador: '',
@@ -77,7 +88,32 @@ function CadastroCtrl($http) {
 		};
 	}
 
-	init();
+	(function init() {
+		initDados();
+		initEndereco();
+		initEntrega();
+		initContato();
+		initBancario();
+		initRede();
+
+		$scope.$watch(function(scope) {
+			return self.endereco;
+		}, function(newVal, oldVal) {
+			if (repetirEnderecoEntrega) {
+				angular.copy(newVal, self.entrega);
+			}
+		}, true);
+	}());
+
+	self.bindEnderecos = function(val) {
+		repetirEnderecoEntrega = val;
+
+		if (val) {
+			angular.copy(self.endereco, self.entrega);
+		} else {
+			initEntrega();
+		}
+	};
 
 	function validarDados() {
 		var flag = true;
@@ -256,6 +292,8 @@ function CadastroCtrl($http) {
 	}
 
 	function validar() {
+		jQuery('input, .custom-select').css('border', 'none');
+
 		var dados = validarDados(),
 			endereco = validarEndereco(),
 			entrega = validarEntrega(),
@@ -269,6 +307,7 @@ function CadastroCtrl($http) {
 	self.submit = function() {
 
 		if (!validar()) {
+			alert('Preencha todos os campos corretamente!');
 			return;
 		};
 
@@ -283,8 +322,26 @@ function CadastroCtrl($http) {
 		$http({
 			url: './mail.php?action=register',
 			method: 'POST',
-			data: data
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $httpParamSerializerJQLike(data)			
+		}).then(function(success) {
+			alert('Mensagem enviada!');
+		}, function(error) {
+			alert('Não foi possível enviar a mensagem. Tente novamente mais tarde.');
 		});
+	};
+
+	self.limpar = function() {
+		if (confirm('Deseja limpar todos os campos?')) {
+			initDados();
+			initEndereco();
+			initEntrega();
+			initContato();
+			initBancario();
+			initRede();
+		}
 	};
 
 }

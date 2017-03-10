@@ -1,6 +1,6 @@
 .row
 	#dark-banner.banner-small
-		.cover-background.dark(style='background-image: url("http://lorempixel.com/1920/1080/business/5")')
+		.cover-background.dark(style='background-image: url("../images/banner-cadastre-se.jpg")')
 		.foreground
 			h1.section-header.text-xlg.text-center.text-white.offset-top-60 Cadastre-se
 			p.section-subheader.text-center.text-sm.text-white.offset-bottom-30
@@ -20,17 +20,17 @@
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label CPF
 				span *
-			input.form-control(type='text' ng-model='cadastro.dados.cpf')
+			input.form-control.text-right(type='text' ng-model='cadastro.dados.cpf' ui-mask='999.999.999-99' model-view-value="true")
 		
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label RG
 				span *
-			input.form-control(type='text' ng-model='cadastro.dados.rg')
+			input.form-control.text-right(type='text' ng-model='cadastro.dados.rg' ui-mask='99.999.999-9' model-view-value="true")
 
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Data de Nascimento
 				span *
-			input.form-control(type='text' ng-model='cadastro.dados.nascimento')
+			input.form-control.text-right(type='text' ng-model='cadastro.dados.nascimento' ui-mask='99/99/9999' model-view-value="true")
 
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Sexo
@@ -58,7 +58,7 @@
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Número
 				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.numero')
+			input.form-control.text-right(type='text' ng-model='cadastro.endereco.numero')
 
 		.col-xs-12.col-sm-8
 			h4.text-light Complemento
@@ -72,7 +72,7 @@
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label CEP
 				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.cep')
+			input.form-control.text-right(type='text' ng-model='cadastro.endereco.cep' ui-mask='99.999-999' model-view-value='true')
 
 		.col-xs-12.col-sm-8
 			h4.text-light Ponto de Referência
@@ -92,43 +92,49 @@
 		.col-xs-12.offset-top-60
 			h2.section-header.text-lg.text-center Endereço de Entrega
 
+		.col-xs-12.offset-top-15
+			.checkbox.checkbox-primary(ng-init='bind = true')
+				input(type='checkbox' id='bindEnderecos' ng-model='bind' ng-click='cadastro.bindEnderecos(bind)')
+				label.text-light.text-sm(for='bindEnderecos')
+					| Usar endereço pessoal
+
 		.col-xs-12
 			h4.text-light.required-field-label Endereço
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.endereco')
+			input.form-control(type='text' ng-model='cadastro.entrega.endereco' ng-disabled='bind')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Número
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.numero')
+			input.form-control.text-right(type='text' ng-model='cadastro.entrega.numero' ng-disabled='bind')
 
 		.col-xs-12.col-sm-8
 			h4.text-light Complemento
-			input.form-control(type='text' ng-model='cadastro.entrega.complemento')
+			input.form-control(type='text' ng-model='cadastro.entrega.complemento' ng-disabled='bind')
 
 		.col-xs-12
 			h4.text-light.required-field-label Bairro
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.bairro')
+			input.form-control(type='text' ng-model='cadastro.entrega.bairro' ng-disabled='bind')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label CEP
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.cep')
+			input.form-control.text-right(type='text' ng-model='cadastro.entrega.cep' ui-mask='99.999-999' model-view-value='true' ng-disabled='bind')
 
 		.col-xs-12.col-sm-8
 			h4.text-light Ponto de Referência
-			input.form-control(type='text' ng-model='cadastro.entrega.referencia')
+			input.form-control(type='text' ng-model='cadastro.entrega.referencia' ng-disabled='bind')
 
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Cidade
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.cidade')
+			input.form-control(type='text' ng-model='cadastro.entrega.cidade' ng-disabled='bind')
 
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Estado
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.uf')
+			input.form-control(type='text' ng-model='cadastro.entrega.uf' ng-disabled='bind')
 
 		//- DADOS DE CONTATO
 		.col-xs-12.offset-top-60
@@ -142,12 +148,12 @@
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Telefone
 				span *
-			input.form-control(type='text' ng-model='cadastro.contato.telefone')
+			input.form-control.text-right(type='text' ng-model='cadastro.contato.telefone' ui-mask='(99) ?99999-9999' model-view-value='true')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Celular 1
 				span *
-			input.form-control(type='text' ng-model='cadastro.contato.cel1.numero')
+			input.form-control.text-right(type='text' ng-model='cadastro.contato.cel1.numero' ui-mask='(99) ?99999-9999' model-view-value='true')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Operadora
@@ -170,7 +176,7 @@
 
 		.col-xs-12.col-sm-4
 			h4.text-light Celular 2
-			input.form-control(type='text' ng-model='cadastro.contato.cel2.numero')
+			input.form-control.text-right(type='text' ng-model='cadastro.contato.cel2.numero' ui-mask='(99) ?99999-9999' model-view-value='true')
 
 		.col-xs-12.col-sm-4
 			h4.text-light Operadora
@@ -232,7 +238,7 @@
 
 		.col-xs-12.col-sm-4
 			h4.text-light CPF do Indicador
-			input.form-control(type='text' ng-model='cadastro.rede.cpfIndicador')
+			input.form-control.text-right(type='text' ng-model='cadastro.rede.cpfIndicador' ui-mask='999.999.999-99')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Nível 1
@@ -264,7 +270,7 @@
 
 	.row.offset-top-60
 			.col-xs-12.col-sm-push-3.col-sm-3
-				button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit()') 
+				button.btn.btn-primary.btn-block.btn-lg.btn-pill.offset-bottom-30(ng-click='cadastro.limpar()') 
 					| Limpar
 			.col-xs-12.col-sm-push-3.col-sm-3
 				button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit()') 
