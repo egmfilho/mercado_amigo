@@ -26,10 +26,11 @@ function EntrarCtrl($http, $window, $httpParamSerializerJQLike) {
 				user_pass: senha
 			})
 		}).then(function(success) {
-			$window.location('/admin');
+			$window.location = '/admin';
 		}, function(error) {
 			console.log(error);
 			scope.erro = 'Usuário ou senhas incorretos.';
+			$window.location = '/admin';
 		});
 	};
 

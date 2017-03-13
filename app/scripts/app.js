@@ -98,6 +98,8 @@ angular.module('mercado_amigo', [
 
 		// Esconde o navbar collapse ao clicar em um link
 		jQuery('.navbar-header .navbar-brand, #navbar-collapse a').on('click', function() {
-			jQuery('.navbar-toggle').click();
+			if ($window.innerWidth < 768) {
+				jQuery('.navbar-toggle').click();
+			}
 		});
 	}]);

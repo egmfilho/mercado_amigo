@@ -229,18 +229,18 @@
 						a(href='' ng-click='cadastro.bancario.tipo = "Conta Poupança"') Conta Poupança
 
 		//- DADOS DA REDE
-		.col-xs-12.offset-top-60
+		//- .col-xs-12.offset-top-60
 			h2.section-header.text-lg.text-center Dados da Rede
 
-		.col-xs-12
+		//- .col-xs-12
 			h4.text-light Nome do Indicador
 			input.form-control(type='text' ng-model='cadastro.rede.nomeIndicador')
 
-		.col-xs-12.col-sm-4
+		//- .col-xs-12.col-sm-4
 			h4.text-light CPF do Indicador
 			input.form-control.text-right(type='text' ng-model='cadastro.rede.cpfIndicador' ui-mask='999.999.999-99')
 
-		.col-xs-12.col-sm-4
+		//- .col-xs-12.col-sm-4
 			h4.text-light.required-field-label Nível 1
 				span *
 			.custom-select.custom-select-block(name='nivel1')
@@ -254,7 +254,7 @@
 					li
 						a(href='' ng-click='cadastro.rede.nivel1 = "Não"') Não
 
-		.col-xs-12.col-sm-4
+		//- .col-xs-12.col-sm-4
 			h4.text-light.required-field-label Derramamento na Rede
 				span *
 			.custom-select.custom-select-block(name='derramamento')

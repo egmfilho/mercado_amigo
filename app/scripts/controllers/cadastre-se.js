@@ -15,7 +15,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 	self.entrega = { };
 	self.contato = { };
 	self.bancario = { };
-	self.rede = { };
+	// self.rede = { };
 
 	function initDados() {
 		self.dados = { 
@@ -94,7 +94,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 		initEntrega();
 		initContato();
 		initBancario();
-		initRede();
+		// initRede();
 
 		$scope.$watch(function(scope) {
 			return self.endereco;
@@ -299,7 +299,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			entrega = validarEntrega(),
 			contato = validarContato(),
 			bancario = validarBancario(),
-			rede = validarRede();
+			rede = true; //validarRede();
 
 		return (dados && endereco && entrega && contato && bancario && rede);
 	}
@@ -317,7 +317,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 		data['entrega'] = self.entrega;
 		data['contato'] = self.contato;
 		data['bancario'] = self.bancario;
-		data['rede'] = self.rede;
+		// data['rede'] = self.rede;
 
 		$http({
 			url: './mail.php?action=register',
@@ -340,7 +340,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			initEntrega();
 			initContato();
 			initBancario();
-			initRede();
+			// initRede();
 		}
 	};
 
