@@ -6,7 +6,7 @@
 			p.section-subheader.text-center.text-sm.text-white.offset-bottom-30
 				| Nossos Produtos
 
-.container
+.container()
 	.row
 		.kit.col-xs-12.col-sm-offset-2.col-sm-8(ng-repeat='kit in kits.array')
 			a.collapsed(href='' data-toggle='collapse' data-target='#{{kit.id}}' aria-expanded='false' aria-controls='{{kit.id}}')
