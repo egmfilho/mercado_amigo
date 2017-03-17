@@ -216,13 +216,14 @@ body {
 		}
 	}
 
-	.btn {
+	button.btn {
 		background-color: $gray-lighter;
 		border: none;
 		border-radius: 0;
 		height: 45px;
 		font-size: 14px;
 		color: $input-color;
+		overflow: hidden;
 	}	
 }
 
