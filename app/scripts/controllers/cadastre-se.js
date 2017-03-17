@@ -7,8 +7,24 @@ CadastroCtrl.$inject = ['$scope', '$http', '$httpParamSerializerJQLike'];
 
 function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 
-	var self = this,
+	var self = this,		
 		repetirEnderecoEntrega = true;
+
+	this.bank_array = [];
+
+	(function obterBancos() {
+		$http({
+			method: 'GET',
+			url: 'api.php?action=get_banks'
+		}).then(function(success) {
+			self.bank_array = [];
+			angular.forEach(success.data.data, function(item) {
+				self.bank_array.push(item);
+			});
+		}, function(error) {
+			console.log(error);
+		});
+	}());
 
 	self.dados = { };
 	self.endereco = { };
@@ -253,7 +269,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 		var flag = true;
 
 		if (!self.bancario.banco) {
-			jQuery('input[ng-model="cadastro.bancario.banco"]').css('border', '1px solid red');
+			jQuery('.custom-select[name="selectBanco"]').css('border', '1px solid red');
 			flag = false;
 		}
 

@@ -202,7 +202,15 @@
 		.col-xs-12.col-sm-3
 			h4.text-light.required-field-label Banco
 				span *
-			input.form-control(type='text' ng-model='cadastro.bancario.banco')
+			.custom-select.custom-select-block(name='selectBanco')
+				button.btn.btn-default(type='button' data-toggle='dropdown') 
+					| {{cadastro.bancario.banco || 'Informe o banco'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: auto; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='banco in cadastro.bank_array')
+						a(href='' ng-click='cadastro.bancario.banco = banco.bank_code + " - " + banco.bank_name') 
+							| {{banco.bank_code}} - {{banco.bank_name}}
 
 		.col-xs-12.col-sm-3
 			h4.text-light.required-field-label Agência
