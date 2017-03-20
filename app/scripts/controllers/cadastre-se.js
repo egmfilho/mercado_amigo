@@ -242,10 +242,10 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			flag = false;
 		}
 
-		if (!self.contato.telefone) {
-			jQuery('input[ng-model="cadastro.contato.telefone"]').css('border', '1px solid red');
-			flag = false;
-		}
+		// if (!self.contato.telefone) {
+		// 	jQuery('input[ng-model="cadastro.contato.telefone"]').css('border', '1px solid red');
+		// 	flag = false;
+		// }
 
 		if (!self.contato.cel1.numero) {
 			jQuery('input[ng-model="cadastro.contato.cel1.numero"]').css('border', '1px solid red');
