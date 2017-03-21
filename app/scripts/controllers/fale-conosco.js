@@ -3,26 +3,26 @@
 angular.module('mercado_amigo.controllers')
 	.controller('FaleConoscoCtrl', FaleConoscoCtrl);
 
-FaleConoscoCtrl.$inject = [ '$http', '$httpParamSerializerJQLike' ];
+FaleConoscoCtrl.$inject = [ '$scope', '$http', '$httpParamSerializerJQLike' ];
 
-function FaleConoscoCtrl($http, $httpParamSerializerJQLike) {
-	
-	function validar(nome, email, mensagem) {
+function FaleConoscoCtrl($scope, $http, $httpParamSerializerJQLike) {
+
+	function validar() {
 		var isValid = true;
 
-		jQuery('input').css('border', 'none');
+		jQuery('input, textarea').css('border', 'none');
 
-		if (!nome) {
+		if (!$scope.nome) {
 			jQuery('input[ng-model="nome"]').css('border', '1px solid red');
 			isValid = false;
 		}
 
-		if (!email) {
+		if (!$scope.email) {
 			jQuery('input[ng-model="email"]').css('border', '1px solid red');
 			isValid = false;
 		}
 
-		if (!mensagem) {
+		if (!$scope.mensagem) {
 			jQuery('textarea[ng-model="mensagem"]').css('border', '1px solid red');
 			isValid = false;
 		}
@@ -30,10 +30,10 @@ function FaleConoscoCtrl($http, $httpParamSerializerJQLike) {
 		return isValid;
 	}
 
-	this.submit = function(nome, email, mensagem) {
+	this.submit = function() {
 
-		if (!validar(nome, email, mensagem)) {
-			alert('Preencha corretamente todos os campos!');
+		if (!validar()) {
+			jQuery('#modal-warning').modal('show');
 			return;
 		}
 
@@ -44,14 +44,17 @@ function FaleConoscoCtrl($http, $httpParamSerializerJQLike) {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: $httpParamSerializerJQLike({
-				'name': nome,
-				'email': email,
-				'message': mensagem
+				'name': $scope.nome,
+				'email': $scope.email,
+				'message': $scope.mensagem
 			})
 		}).then(function(success) {
-			alert('Mensagem enviada!');
-		}, function(error) {
-			alert('Não foi possível enviar a mensagem. Tente novamente mais tarde.');
+			$scope.nome = '';
+			$scope.email = '';
+			$scope.mensagem = '';
+			jQuery('#modal-confirm').modal('show');
+		}, function(error) {		
+			jQuery('#modal-error').modal('show');
 		});
 	};
 

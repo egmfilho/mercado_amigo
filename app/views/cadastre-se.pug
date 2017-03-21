@@ -277,8 +277,57 @@
 
 	.row.offset-top-60
 			.col-xs-12.col-sm-push-3.col-sm-3
-				button.btn.btn-primary.btn-block.btn-lg.btn-pill.offset-bottom-30(ng-click='cadastro.limpar()') 
+				button.btn.btn-primary.btn-block.btn-lg.btn-pill.offset-bottom-30(ng-click='cadastro.perguntar()') 
 					| Limpar
 			.col-xs-12.col-sm-push-3.col-sm-3
 				button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='cadastro.submit()') 
 					| Cadastrar
+
+#modal-perguntar.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Aviso
+			.modal-body
+				p Deseja limpar todos os campos do formulário?
+			.modal-footer
+				button.btn.btn-primary(type='button' ng-click='cadastro.limpar()' data-dismiss='modal') Limpar
+				button.btn.btn-default(type='button' data-dismiss='modal') Fechar
+
+#modal-warning.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Aviso!
+			.modal-body
+				p Preencha corretamente todos os campos!
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar
+
+#modal-confirm.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Confirmação
+			.modal-body
+				p O cadastro foi enviado! Em breve entraremos em contato.
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar
+
+#modal-error.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Aviso
+			.modal-body
+				p Não foi possível enviar o formulário, tente novamente mais tarde.
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar

@@ -1,25 +1,34 @@
 'use strict';
 
 angular.module('mercado_amigo.controllers')
-	.controller('CadastroCtrl', CadastroCtrl);
+.controller('CadastroCtrl', CadastroCtrl);
 
 CadastroCtrl.$inject = ['$scope', '$http', '$httpParamSerializerJQLike'];
 
 function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 
 	var self = this,		
-		repetirEnderecoEntrega = true;
+	repetirEnderecoEntrega = true;
 
 	this.bank_array = [];
 
 	(function obterBancos() {
 		$http({
 			method: 'GET',
+			// url: 'api.php?action=get_banks'
 			url: 'api.php?action=get_banks'
 		}).then(function(success) {
 			self.bank_array = [];
-			angular.forEach(success.data.data, function(item) {
+			angular.forEach(success.data.data, function(item) {				
 				self.bank_array.push(item);
+			});
+
+			self.bank_array.sort(function compare(a, b) {
+				if (parseInt(a.bank_code) < parseInt(b.bank_code))
+					return -1;
+				if (parseInt(a.bank_code) > parseInt(b.bank_code))
+					return 1;
+				return 0;
 			});
 		}, function(error) {
 			console.log(error);
@@ -311,28 +320,29 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 		jQuery('input, .custom-select').css('border', 'none');
 
 		var dados = validarDados(),
-			endereco = validarEndereco(),
-			entrega = validarEntrega(),
-			contato = validarContato(),
-			bancario = validarBancario(),
+		endereco = validarEndereco(),
+		entrega = validarEntrega(),
+		contato = validarContato(),
+		bancario = validarBancario(),
 			rede = true; //validarRede();
 
-		return (dados && endereco && entrega && contato && bancario && rede);
-	}
+			return (dados && endereco && entrega && contato && bancario && rede);
+		}
 
-	self.submit = function() {
+		self.submit = function() {
 
-		if (!validar()) {
-			alert('Preencha todos os campos corretamente!');
-			return;
-		};
+			if (!validar()) {
+				jQuery('#modal-warning').modal('show');
+				return;
+			};
 
-		var data = { };
-		data['dados'] = self.dados;
-		data['endereco'] = self.endereco;
-		data['entrega'] = self.entrega;
-		data['contato'] = self.contato;
-		data['bancario'] = self.bancario;
+			var data = { };
+			data['dados'] = self.dados;
+			data['pessoal'] = self.endereco;
+			data['enderecos_iguais'] = $scope.bind;
+			data['entrega'] = self.entrega;
+			data['contato'] = self.contato;
+			data['bancario'] = self.bancario;
 		// data['rede'] = self.rede;
 
 		$http({
@@ -343,21 +353,24 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			},
 			data: $httpParamSerializerJQLike(data)			
 		}).then(function(success) {
-			alert('Mensagem enviada!');
+			self.limpar();
+			jQuery('#modal-confirm').modal('show');
 		}, function(error) {
-			alert('Não foi possível enviar a mensagem. Tente novamente mais tarde.');
+			jQuery('#modal-error').modal('show');
 		});
 	};
 
-	self.limpar = function() {
-		if (confirm('Deseja limpar todos os campos?')) {
-			initDados();
-			initEndereco();
-			initEntrega();
-			initContato();
-			initBancario();
-			// initRede();
-		}
+	this.limpar = function() {
+		initDados();
+		initEndereco();
+		initEntrega();
+		initContato();
+		initBancario();
+		// initRede();
+	}
+
+	self.perguntar = function() {
+		jQuery('#modal-perguntar').modal('show');
 	};
 
 }

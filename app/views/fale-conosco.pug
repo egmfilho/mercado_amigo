@@ -27,5 +27,41 @@
 			
 			.row.offset-top-30
 				.col-xs-12.col-sm-push-8.col-sm-4
-					button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='faleConosco.submit(nome, email, mensagem)') 
+					button.btn.btn-primary.btn-block.btn-lg.btn-pill(ng-click='faleConosco.submit()') 
 						| Enviar
+
+#modal-warning.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Aviso!
+			.modal-body
+				p Preencha corretamente todos os campos!
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar
+
+#modal-confirm.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Confirmação
+			.modal-body
+				p A mensagem foi enviada!
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar
+
+#modal-error.modal.fade(role='dialog')
+	.modal-dialog(role='document')
+		.modal-content
+			.modal-header
+				button.close(type='button' data-dismiss='modal' aria-label='Fechar')
+					span(aria-hidden='true') &times;
+				h4.modal-title Aviso
+			.modal-body
+				p Não foi possível enviar a mensagem, tente novamente mais tarde.
+			.modal-footer
+				button.btn.btn-primary(type='button' data-dismiss='modal') Fechar
