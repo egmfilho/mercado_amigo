@@ -20,6 +20,14 @@ html
 
 	body(ng-app='mercado_amigo')
 
+		#loading(ng-show='loading.isLoading()')
+			.spinner(style='transform: scale(2)')
+				.rect1
+				.rect2
+				.rect3
+				.rect4
+				.rect5
+
 		block header
 
 		block page

@@ -3,9 +3,9 @@
 angular.module('mercado_amigo.controllers')
 	.controller('FaleConoscoCtrl', FaleConoscoCtrl);
 
-FaleConoscoCtrl.$inject = [ '$scope', '$http', '$httpParamSerializerJQLike' ];
+FaleConoscoCtrl.$inject = [ '$rootScope', '$scope', '$http', '$httpParamSerializerJQLike' ];
 
-function FaleConoscoCtrl($scope, $http, $httpParamSerializerJQLike) {
+function FaleConoscoCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 
 	function validar() {
 		var isValid = true;
@@ -37,6 +37,7 @@ function FaleConoscoCtrl($scope, $http, $httpParamSerializerJQLike) {
 			return;
 		}
 
+		$rootScope.loading.load();
 		$http({
 			url: './mail.php?action=contact',
 			method: 'POST',
@@ -52,8 +53,10 @@ function FaleConoscoCtrl($scope, $http, $httpParamSerializerJQLike) {
 			$scope.nome = '';
 			$scope.email = '';
 			$scope.mensagem = '';
+			$rootScope.loading.unload();
 			jQuery('#modal-confirm').modal('show');
 		}, function(error) {		
+			$rootScope.loading.unload();
 			jQuery('#modal-error').modal('show');
 		});
 	};

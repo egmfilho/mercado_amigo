@@ -3,16 +3,17 @@
 angular.module('mercado_amigo.controllers')
 .controller('CadastroCtrl', CadastroCtrl);
 
-CadastroCtrl.$inject = ['$scope', '$http', '$httpParamSerializerJQLike'];
+CadastroCtrl.$inject = ['$rootScope', '$scope', '$http', '$httpParamSerializerJQLike'];
 
-function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
+function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 
 	var self = this,		
 	repetirEnderecoEntrega = true;
 
-	this.bank_array = [];
+	this.bank_array = [];	
 
 	(function obterBancos() {
+		$rootScope.loading.load();
 		$http({
 			method: 'GET',
 			// url: 'api.php?action=get_banks'
@@ -30,8 +31,10 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 					return 1;
 				return 0;
 			});
+			$rootScope.loading.unload();
 		}, function(error) {
 			console.log(error);
+			$rootScope.loading.unload();
 		});
 	}());
 
@@ -345,6 +348,7 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			data['bancario'] = self.bancario;
 		// data['rede'] = self.rede;
 
+		$rootScope.loading.load();
 		$http({
 			url: './mail.php?action=register',
 			method: 'POST',
@@ -354,8 +358,10 @@ function CadastroCtrl($scope, $http, $httpParamSerializerJQLike) {
 			data: $httpParamSerializerJQLike(data)			
 		}).then(function(success) {
 			self.limpar();
-			jQuery('#modal-confirm').modal('show');
+			$rootScope.loading.unload();
+			jQuery('#modal-confirm').modal('show');			
 		}, function(error) {
+			$rootScope.loading.unload();
 			jQuery('#modal-error').modal('show');
 		});
 	};

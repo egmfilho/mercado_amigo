@@ -64,6 +64,14 @@ angular.module('mercado_amigo', [
 
 	}])
 	.run(['$rootScope', '$window', function($rootScope, $window) {
+
+		$rootScope.loading = {
+			count: 0,
+			isLoading: function() { return this.count > 0 },
+			load: function() { this.count++; },
+			unload: function() { this.count--; this.count < 0 ? this.count = 0 : null; }
+		};
+
 		var navbar = jQuery('nav.navbar.navbar-default'), 
 			body   = jQuery('body');
 
@@ -72,14 +80,14 @@ angular.module('mercado_amigo', [
 				return;
 			}
 
-            if ($window.scrollY >= 150) {
-        		navbar.addClass('navbar-fixed-top');
-        		body.addClass('offset-top-50');
-            } else {
-            	navbar.removeClass('navbar-fixed-top');
-            	body.removeClass('offset-top-50');
-            }
-        });
+			if ($window.scrollY >= 150) {
+				navbar.addClass('navbar-fixed-top');
+				body.addClass('offset-top-50');
+			} else {
+				navbar.removeClass('navbar-fixed-top');
+				body.removeClass('offset-top-50');
+			}
+		});
 
 		$rootScope.getNumber = function(num) {
 			return new Array(Math.max(0, Math.ceil(num)));
