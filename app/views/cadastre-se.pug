@@ -50,10 +50,55 @@
 		.col-xs-12.offset-top-60
 			h2.section-header.text-lg.text-center Endereço Pessoal
 
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label CEP
+				span *
+			button.glyphicon.glyphicon-search.search-cep(ng-click="cadastro.getCEP(cadastro.endereco)")
+			input.form-control.text-right.input-cep(type='text' blur-to="cadastro.endereco.cepBkp" keys-shortcuts enter="cadastro.getCEP(cadastro.endereco)" ng-model='cadastro.endereco.cep' ui-mask='99.999-999' model-view-value='true')
+
+		.col-xs-12.col-sm-8
+			h4.text-light.required-field-label Estado
+				span *
+			.custom-select.custom-select-block(name='selectEstado')
+				button.btn.btn-default(type='button' data-toggle='dropdown')
+					| {{cadastro.endereco.estado.uf ? (cadastro.endereco.estado.uf+' - '+cadastro.endereco.estado.nome) : 'Selecione o Estado'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='estado in cadastro.uf_array')
+						a(href='' ng-click='cadastro.selecionaEstado(cadastro.endereco,estado,null)') 
+							| {{estado.uf_code}} - {{estado.uf_name}}
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Cidade
+				span *
+			.custom-select.custom-select-block(name='selectCidade')
+				button.btn.btn-default(type='button' data-toggle='dropdown')
+					| {{cadastro.endereco.cidade.nome || 'Selecione a Cidade'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='cidade in cadastro.endereco.city_array')
+						a(href='' ng-click='cadastro.selecionaCidade(cadastro.endereco,cidade,null)')
+							| {{cidade.city_name}}
+
+		.col-xs-12.col-sm-6
+			h4.text-light.required-field-label Bairro
+				span *
+			.custom-select.custom-select-block(name='selectBairro')
+				button.btn.btn-default(type='button' data-toggle='dropdown')
+					| {{cadastro.endereco.bairro.nome || 'Selecione o Bairro'}}
+				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='bairro in cadastro.endereco.district_array')
+						a(href='' ng-click='cadastro.selecionaBairro(cadastro.endereco,bairro)') 
+							| {{bairro.district_name}}
+
 		.col-xs-12
 			h4.text-light.required-field-label Endereço
 				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.endereco')
+			input.form-control(type='text' ng-model='cadastro.endereco.logradouro')
 
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label Número
@@ -64,29 +109,9 @@
 			h4.text-light Complemento
 			input.form-control(type='text' ng-model='cadastro.endereco.complemento')
 
-		.col-xs-12
-			h4.text-light.required-field-label Bairro
-				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.bairro')
-
-		.col-xs-12.col-sm-4
-			h4.text-light.required-field-label CEP
-				span *
-			input.form-control.text-right(type='text' ng-model='cadastro.endereco.cep' ui-mask='99.999-999' model-view-value='true')
-
-		.col-xs-12.col-sm-8
-			h4.text-light Ponto de Referência
-			input.form-control(type='text' ng-model='cadastro.endereco.referencia')
-
-		.col-xs-12.col-sm-6
-			h4.text-light.required-field-label Cidade
-				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.cidade')
-
-		.col-xs-12.col-sm-6
-			h4.text-light.required-field-label Estado
-				span *
-			input.form-control(type='text' ng-model='cadastro.endereco.uf')
+		//- .col-xs-12.col-sm-8
+		//- 	h4.text-light Ponto de Referência
+		//- 	input.form-control(type='text' ng-model='cadastro.endereco.referencia')
 
 		//- ENDEREÇO DE ENTREGA
 		.col-xs-12.offset-top-60
@@ -98,43 +123,64 @@
 				label.text-light.text-sm(for='bindEnderecos')
 					| Usar endereço pessoal
 
-		.col-xs-12
-			h4.text-light.required-field-label Endereço
-				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.endereco' ng-disabled='bind')
-
-		.col-xs-12.col-sm-4
-			h4.text-light.required-field-label Número
-				span *
-			input.form-control.text-right(type='text' ng-model='cadastro.entrega.numero' ng-disabled='bind')
-
-		.col-xs-12.col-sm-8
-			h4.text-light Complemento
-			input.form-control(type='text' ng-model='cadastro.entrega.complemento' ng-disabled='bind')
-
-		.col-xs-12
-			h4.text-light.required-field-label Bairro
-				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.bairro' ng-disabled='bind')
-
 		.col-xs-12.col-sm-4
 			h4.text-light.required-field-label CEP
 				span *
-			input.form-control.text-right(type='text' ng-model='cadastro.entrega.cep' ui-mask='99.999-999' model-view-value='true' ng-disabled='bind')
+			button.glyphicon.glyphicon-search.search-cep(ng-disabled="bind" ng-click="cadastro.getCEP(cadastro.entrega)")
+			input.form-control.text-right.input-cep(ng-disabled="bind" type='text' blur-to="cadastro.entrega.cepBkp" keys-shortcuts enter="cadastro.getCEP(cadastro.entrega)" ng-model='cadastro.entrega.cep' ui-mask='99.999-999' model-view-value='true')
 
 		.col-xs-12.col-sm-8
-			h4.text-light Ponto de Referência
-			input.form-control(type='text' ng-model='cadastro.entrega.referencia' ng-disabled='bind')
+			h4.text-light.required-field-label Estado
+				span *
+			.custom-select.custom-select-block(name='selectEstado')
+				button.btn.btn-default(ng-disabled="bind" type='button' data-toggle='dropdown')
+					| {{cadastro.entrega.estado.uf ? (cadastro.entrega.estado.uf+' - '+cadastro.entrega.estado.nome) : 'Selecione o Estado'}}
+				button.btn.btn-default.dropdown-toggle(ng-disabled="bind" type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='estado in cadastro.uf_array')
+						a(href='' ng-click='cadastro.selecionaEstado(cadastro.entrega,estado,null)') 
+							| {{estado.uf_code}} - {{estado.uf_name}}
 
 		.col-xs-12.col-sm-6
 			h4.text-light.required-field-label Cidade
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.cidade' ng-disabled='bind')
+			.custom-select.custom-select-block(name='selectCidade')
+				button.btn.btn-default(ng-disabled="bind" type='button' data-toggle='dropdown')
+					| {{cadastro.entrega.cidade.nome || 'Selecione a Cidade'}}
+				button.btn.btn-default.dropdown-toggle(ng-disabled="bind" type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='cidade in cadastro.entrega.city_array')
+						a(href='' ng-click='cadastro.selecionaCidade(cadastro.entrega,cidade,null)')
+							| {{cidade.city_name}}
 
 		.col-xs-12.col-sm-6
-			h4.text-light.required-field-label Estado
+			h4.text-light.required-field-label Bairro
 				span *
-			input.form-control(type='text' ng-model='cadastro.entrega.uf' ng-disabled='bind')
+			.custom-select.custom-select-block(name='selectBairro')
+				button.btn.btn-default(ng-disabled="bind" type='button' data-toggle='dropdown')
+					| {{cadastro.entrega.bairro.nome || 'Selecione o Bairro'}}
+				button.btn.btn-default.dropdown-toggle(ng-disabled="bind" type='button' data-toggle='dropdown')
+					span.caret
+				ul.dropdown-menu(style='width: 100%; max-height: 400px; overflow-y: auto;')
+					li(ng-repeat='bairro in cadastro.entrega.district_array')
+						a(href='' ng-click='cadastro.selecionaBairro(cadastro.entrega,bairro)') 
+							| {{bairro.district_name}}
+
+		.col-xs-12
+			h4.text-light.required-field-label Endereço
+				span *
+			input.form-control(ng-disabled="bind" type='text' ng-model='cadastro.entrega.logradouro')
+
+		.col-xs-12.col-sm-4
+			h4.text-light.required-field-label Número
+				span *
+			input.form-control.text-right(ng-disabled="bind" type='text' ng-model='cadastro.entrega.numero')
+
+		.col-xs-12.col-sm-8
+			h4.text-light Complemento
+			input.form-control(ng-disabled="bind" type='text' ng-model='cadastro.entrega.complemento')
 
 		//- DADOS DE CONTATO
 		.col-xs-12.offset-top-60
@@ -206,7 +252,7 @@
 					| {{cadastro.bancario.banco || 'Informe o banco'}}
 				button.btn.btn-default.dropdown-toggle(type='button' data-toggle='dropdown')
 					span.caret
-				ul.dropdown-menu(style='width: auto; max-height: 400px; overflow-y: auto;')
+				ul.dropdown-menu(style='width: 100%; min-width: 314px; max-height: 400px; overflow-y: auto;')
 					li(ng-repeat='banco in cadastro.bank_array')
 						a(href='' ng-click='cadastro.bancario.banco = banco.bank_code + " - " + banco.bank_name') 
 							| {{banco.bank_code}} - {{banco.bank_name}}

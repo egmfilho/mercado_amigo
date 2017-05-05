@@ -10,20 +10,37 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 	var self = this,		
 	repetirEnderecoEntrega = true;
 
-	this.bank_array = [];	
+	this.api = 'http://172.16.0.82/mercado-amigo/public/';
+	this.uf_array = [];
+	this.bank_array = [];
+
+	(function obterEstados() {
+		$rootScope.loading.load();
+		$http({
+			method: 'GET',
+			url: self.api + 'api.php?action=get_ufs'
+		}).then(function(success) {
+			self.uf_array = [];
+			angular.forEach(success.data.data, function(item) {				
+				self.uf_array.push(item);
+			});
+			$rootScope.loading.unload();
+		}, function(error) {
+			console.log(error);
+			$rootScope.loading.unload();
+		});
+	}());
 
 	(function obterBancos() {
 		$rootScope.loading.load();
 		$http({
 			method: 'GET',
-			// url: 'api.php?action=get_banks'
-			url: 'api.php?action=get_banks'
+			url: self.api + 'api.php?action=get_banks'
 		}).then(function(success) {
 			self.bank_array = [];
 			angular.forEach(success.data.data, function(item) {				
 				self.bank_array.push(item);
 			});
-
 			self.bank_array.sort(function compare(a, b) {
 				if (parseInt(a.bank_code) < parseInt(b.bank_code))
 					return -1;
@@ -57,27 +74,51 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 
 	function initEndereco() {
 		self.endereco = {
-			endereco: '',
+			cep: '',
+			cepBkp: '',
+			estado: {
+				id:'',
+				uf:'',
+				nome:''
+			},
+			cidade: {
+				id:'',
+				nome:''
+			},
+			bairro: {
+				id:'',
+				nome:''
+			},
+			logradouro: '',
 			numero: '',
 			complemento: '',
-			bairro: '',
-			cep: '',
-			referencia: '',
-			cidade: '',
-			uf: ''
+			city_array: [],
+			district_array: []
 		};
 	}
 
 	function initEntrega() {
 		self.entrega = {
-			endereco: '',
+			cep: '',
+			cepBkp: '',
+			estado: {
+				id:'',
+				uf:'',
+				nome:''
+			},
+			cidade: {
+				id:'',
+				nome:''
+			},
+			bairro: {
+				id:'',
+				nome:''
+			},
+			logradouro: '',
 			numero: '',
 			complemento: '',
-			bairro: '',
-			cep: '',
-			referencia: '',
-			cidade: '',
-			uf: ''
+			city_array: [],
+			district_array: []
 		};
 	}
 
@@ -133,6 +174,74 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 		}, true);
 	}());
 
+	self.selecionaEstado = function(target,estado,address){
+		// console.log(estado);
+		target.estado.id = estado.uf_id;
+		target.estado.uf = estado.uf_code;
+		target.estado.nome = estado.uf_name;
+		target.cidade = { id:'', nome:'' };
+		target.bairro = { id:'', nome:'' };
+		target.city_array = [];
+		$rootScope.loading.load();
+		$http({
+			method: 'POST',
+			url: self.api + 'api.php?action=get_citys',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $httpParamSerializerJQLike({
+				'uf_id': estado.uf_id
+			})
+		}).then(function(success){			
+			angular.forEach(success.data.data, function(item) {
+				target.city_array.push(item);
+				if( address != null && address.ibge == item.city_ibge){
+					self.selecionaCidade(target,item,address);
+				}
+			});
+			$rootScope.loading.unload();
+		}, function(error) {
+			console.log(error);
+			$rootScope.loading.unload();
+		});
+	};
+
+	self.selecionaCidade = function(target,cidade,address){
+		target.cidade.id = cidade.city_id;
+		target.cidade.nome = cidade.city_name;
+		target.bairro = { id:'', nome:'' };
+		target.district_array = [];
+		$rootScope.loading.load();
+		$http({
+			method: 'POST',
+			url: self.api + 'api.php?action=get_districts',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $httpParamSerializerJQLike({
+				'city_id': cidade.city_id
+			})
+		}).then(function(success){
+			angular.forEach(success.data.data, function(item) {
+				target.district_array.push(item);
+				if( address != null && address.bairro == item.district_name){
+					self.selecionaBairro(target,item);
+					target.logradouro = address.logradouro;
+					target.complemento = address.complemento;
+				}
+			});
+			$rootScope.loading.unload();
+		}, function(error) {
+			console.log(error);
+			$rootScope.loading.unload();
+		});
+	};
+
+	self.selecionaBairro = function(target,bairro){
+		target.bairro.id = bairro.district_id;
+		target.bairro.nome = bairro.district_name;		
+	};
+
 	self.bindEnderecos = function(val) {
 		repetirEnderecoEntrega = val;
 
@@ -142,6 +251,48 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 			initEntrega();
 		}
 	};
+
+	self.getCEP = function(target){
+		if( target.cep && target.cep.length == 10){
+			$rootScope.loading.load();
+			$http({
+				url: 'http://viacep.com.br/ws/'+target.cep.replace('.','')+'/json/',
+				method: 'GET'
+			}).then(function(success) {
+				//console.log(success.data);
+				target.cepBkp = target.cep;
+				self.getUF(target,success.data);
+				$rootScope.loading.unload();
+				// jQuery('#modal-confirm').modal('show');
+			}, function(error) {
+				$rootScope.loading.unload();
+				// jQuery('#modal-error').modal('show');
+			});
+		}
+	}
+
+	self.getUF = function(target,address){
+		$rootScope.loading.load();
+		$http({
+			url: self.api + 'api.php?action=get_uf',
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: $httpParamSerializerJQLike({
+				'uf_code': address.uf
+			})
+		}).then(function(success) {
+			//console.log(success.data);
+			self.selecionaEstado(target,success.data.data,address);
+			// self.limpar();
+			$rootScope.loading.unload();
+			// jQuery('#modal-confirm').modal('show');
+		}, function(error) {
+			$rootScope.loading.unload();
+			// jQuery('#modal-error').modal('show');
+		});
+	}
 
 	function validarDados() {
 		var flag = true;
@@ -177,8 +328,28 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 	function validarEndereco() {
 		var flag = true;
 
-		if (!self.endereco.endereco) {
-			jQuery('input[ng-model="cadastro.endereco.endereco"]').css('border', '1px solid red');
+		if (!self.endereco.cep) {
+			jQuery('input[ng-model="cadastro.endereco.cep"]').css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.endereco.estado.nome) {
+			jQuery('div[name="selectEstado"]').eq(0).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.endereco.cidade.nome) {
+			jQuery('div[name="selectCidade"]').eq(0).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.endereco.bairro.nome) {
+			jQuery('div[name="selectBairro"]').eq(0).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.endereco.logradouro) {
+			jQuery('input[ng-model="cadastro.endereco.logradouro"]').css('border', '1px solid red');
 			flag = false;
 		}
 
@@ -186,35 +357,35 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 			jQuery('input[ng-model="cadastro.endereco.numero"]').css('border', '1px solid red');
 			flag = false;
 		}
-
-		if (!self.endereco.bairro) {
-			jQuery('input[ng-model="cadastro.endereco.bairro"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.endereco.cep) {
-			jQuery('input[ng-model="cadastro.endereco.cep"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.endereco.cidade) {
-			jQuery('input[ng-model="cadastro.endereco.cidade"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.endereco.uf) {
-			jQuery('input[ng-model="cadastro.endereco.uf"]').css('border', '1px solid red');
-			flag = false;
-		}
-
+		console.log('Endereco: '+flag);
 		return flag;
 	}
 
 	function validarEntrega() {
 		var flag = true;
 
-		if (!self.entrega.endereco) {
-			jQuery('input[ng-model="cadastro.entrega.endereco"]').css('border', '1px solid red');
+		if (!self.entrega.cep) {
+			jQuery('input[ng-model="cadastro.entrega.cep"]').css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.entrega.estado.nome) {
+			jQuery('div[name="selectEstado"]').eq(1).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.entrega.cidade.nome) {
+			jQuery('div[name="selectCidade"]').eq(1).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.entrega.bairro.nome) {
+			jQuery('div[name="selectBairro"]').eq(1).css('border', '1px solid red');
+			flag = false;
+		}
+
+		if (!self.entrega.logradouro) {
+			jQuery('input[ng-model="cadastro.entrega.logradouro"]').css('border', '1px solid red');
 			flag = false;
 		}
 
@@ -222,27 +393,7 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 			jQuery('input[ng-model="cadastro.entrega.numero"]').css('border', '1px solid red');
 			flag = false;
 		}
-
-		if (!self.entrega.bairro) {
-			jQuery('input[ng-model="cadastro.entrega.bairro"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.entrega.cep) {
-			jQuery('input[ng-model="cadastro.entrega.cep"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.entrega.cidade) {
-			jQuery('input[ng-model="cadastro.entrega.cidade"]').css('border', '1px solid red');
-			flag = false;
-		}
-
-		if (!self.entrega.uf) {
-			jQuery('input[ng-model="cadastro.entrega.uf"]').css('border', '1px solid red');
-			flag = false;
-		}
-
+		console.log('\nEntrega: '+flag);
 		return flag;
 	}
 
@@ -320,6 +471,7 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 	}
 
 	function validar() {
+
 		jQuery('input, .custom-select').css('border', 'none');
 
 		var dados = validarDados(),
@@ -327,39 +479,44 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 		entrega = validarEntrega(),
 		contato = validarContato(),
 		bancario = validarBancario(),
-			rede = true; //validarRede();
+		rede = true;//validarRede();
 
-			return (dados && endereco && entrega && contato && bancario && rede);
-		}
+		return (dados && endereco && entrega && contato && bancario && rede);
+	}
 
-		self.submit = function() {
+	self.submit = function() {
 
-			if (!validar()) {
-				jQuery('#modal-warning').modal('show');
-				return;
-			};
+		if (!validar()) {
+			jQuery('#modal-warning').modal('show');
+			return;
+		};
 
-			var data = { };
-			data['dados'] = self.dados;
-			data['pessoal'] = self.endereco;
-			data['enderecos_iguais'] = $scope.bind;
-			data['entrega'] = self.entrega;
-			data['contato'] = self.contato;
-			data['bancario'] = self.bancario;
-		// data['rede'] = self.rede;
-
-		$rootScope.loading.load();
+		var data = {};
+		delete self.endereco.city_array;
+		delete self.endereco.district_array;
+		delete self.entrega.city_array;
+		delete self.entrega.district_array;
+		
+		data['dados'] = self.dados;
+		data['enderecos_iguais'] = $scope.bind;
+		data['endereco'] = self.endereco;
+		data['entrega'] = self.entrega;
+		data['contato'] = self.contato;
+		data['bancario'] = self.bancario;
+		data['rede'] = self.rede;
+		
+		$rootScope.loading.load();		
 		$http({
-			url: './mail.php?action=register',
+			url: self.api + 'mail.php?action=register',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: $httpParamSerializerJQLike(data)			
+			data: $httpParamSerializerJQLike(data)
 		}).then(function(success) {
 			self.limpar();
 			$rootScope.loading.unload();
-			jQuery('#modal-confirm').modal('show');			
+			jQuery('#modal-confirm').modal('show');
 		}, function(error) {
 			$rootScope.loading.unload();
 			jQuery('#modal-error').modal('show');

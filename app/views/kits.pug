@@ -12,7 +12,7 @@
 			a.collapsed(href='' data-toggle='collapse' data-target='#{{kit.id}}' aria-expanded='false' aria-controls='{{kit.id}}')
 				h2.section-header.text-center.text-lg.offset-top-60.offset-bottom-30 
 					i.fa.fa-shopping-basket
-					|  {{kit.nome}}				
+					|  {{kit.nome}}	- {{kit.value | currency: 'R$ '}}			
 					i.pull-right.fa
 			.table-responsive.collapse(id='{{kit.id}}')
 				table.table

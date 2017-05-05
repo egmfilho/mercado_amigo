@@ -14,13 +14,14 @@ function KitsCtrl($http) {
 	function obterKits() {
 		$http({
 			method: 'GET',
-			url: 'api.php?action=get_kits'
+			url: 'http://172.16.0.82/mercado-amigo/public/api.php?action=get_kits'
 		}).then(function(success) {
 			self.array = [];
 			angular.forEach(success.data.data, function(item) {
 				var kit = { 
-					nome: item.kit_name,
 					id: item.kit_id,
+					nome: item.kit_name,
+					value: item.kit_value,
 					itens: [ ]
 				};
 

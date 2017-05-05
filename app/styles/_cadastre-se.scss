@@ -1,3 +1,27 @@
+button.search-cep{
+	position: absolute;
+	right:28px;
+	top: 50px;
+	font-size: 22px;
+	color: #555555;
+	cursor: pointer;
+	border: none;
+	background: transparent;
+}
+
+button:disabled{
+	cursor: not-allowed;
+	background-color: #EEE !important;
+}
+
+button:focus{
+	outline: none;
+}
+
+.input-cep{
+	padding-right: 50px !important;
+}
+
 .required-field-label {
 	span {
 		color: red;

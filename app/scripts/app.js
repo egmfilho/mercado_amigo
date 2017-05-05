@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('mercado_amigo.controllers', [ ]);
+angular.module('mercado_amigo.directives', [ ]);
 
 angular.module('mercado_amigo', [
 		'ngAnimate',
@@ -8,7 +9,9 @@ angular.module('mercado_amigo', [
 		'ngSanitize',
 		'ngTouch',
 		'mercado_amigo.controllers',
-		'ui.mask'
+		'mercado_amigo.directives',
+		'ui.mask',
+		'egmfilho.keys'
 	])
 	.config(['$locationProvider', function($locationProvider) {
 		$locationProvider.hashPrefix('');
