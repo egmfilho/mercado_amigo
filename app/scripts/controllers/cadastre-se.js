@@ -10,7 +10,7 @@ function CadastroCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) {
 	var self = this,		
 	repetirEnderecoEntrega = true;
 
-	this.api = 'http://172.16.0.82/mercado-amigo/public/';
+	this.api = '';
 	this.uf_array = [];
 	this.bank_array = [];
 
