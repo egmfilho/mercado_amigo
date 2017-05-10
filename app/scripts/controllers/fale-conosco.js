@@ -39,7 +39,7 @@ function FaleConoscoCtrl($rootScope, $scope, $http, $httpParamSerializerJQLike) 
 
 		$rootScope.loading.load();
 		$http({
-			url: './mail.php?action=contact',
+			url: 'mail.php?action=contact',
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

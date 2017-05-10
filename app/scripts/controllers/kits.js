@@ -14,7 +14,7 @@ function KitsCtrl($http) {
 	function obterKits() {
 		$http({
 			method: 'GET',
-			url: 'http://172.16.0.82/mercado-amigo/public/api.php?action=get_kits'
+			url: 'api.php?action=get_kits'
 		}).then(function(success) {
 			self.array = [];
 			angular.forEach(success.data.data, function(item) {

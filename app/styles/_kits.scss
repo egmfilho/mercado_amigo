@@ -1,3 +1,9 @@
+.shipping{
+	padding: 82px 0 4px;
+	text-align: center;
+	margin: 0;
+}
+
 .kit {
 	a[data-toggle='collapse'] {
 		&:hover, &:focus {
@@ -22,7 +28,7 @@
 				}
 			}
 		}
-	}
+	}	
 
 	.table-responsive {				
 		max-height: 400px;
